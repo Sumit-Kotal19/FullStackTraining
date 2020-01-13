@@ -1,0 +1,51 @@
+Body{
+    background: #dddddd;
+}
+.wrapper{
+    background: #ffffff;
+}
+header{
+    background: red;
+    padding: 20px;
+}
+header b{
+    color: #ffffff;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 0 2% 2% 0;
+}
+section{
+    padding: 15px;
+}
+.align-horizontal {
+    /* display:inline-block; */
+    float: left;
+    margin: 0 1% 1% 0;
+}
+.header-entry{
+    width: 100%;
+}
+.heading{
+    display: inline-block;
+    width: 60%;
+}
+.header-entry #txt{
+    width: 70%;
+}
+.header-entry #btn{
+    width: 28%;
+}
+ul{
+    list-style-type: none;
+}
+ul li{
+    margin: 0 1% 1% 0;
+}
+.selected{
+    background: grey;
+    text-decoration:  line-through;
+}
+.selected::before{
+    content: "√";
+}

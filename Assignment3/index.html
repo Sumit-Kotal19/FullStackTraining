@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>To do list</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+    <b>To Do List</b><br>
+
+    <div class="header-entry">
+        <input type="text" placeholder="Title..." id="txt">
+        <input type="button" onclick="myAddFunc()" value="Add" id="btn">
+    </div>
+    </header>
+
+    <section>
+        <ul id="list">
+            <li onclick="select(this)" ondblclick="deleteObj(this)">Hit the gym</li>
+            <li class="selected" ondblclick="deleteObj(this)" onclick="select(this)">two</li>
+            <li onclick="select(this)" ondblclick="deleteObj(this)">Three</li>
+        </ul>
+    </section>
+    
+</body>
+
+<script>
+    function myAddFunc(){
+        var a = document.getElementById("txt").value;
+        var li = document.createElement("li");
+        li.setAttribute("onclick","select(this)");
+        li.setAttribute("ondblclick","deleteObj(this)");
+        li.textContent = a;
+        var b = new Date();
+        localStorage.setItem(b,a);
+        document.getElementById("list").appendChild(li);
+    }
+    function select(obj){
+        obj.classList.toggle("selected");
+    }
+    function deleteObj(obj){
+        if(obj.classList.contains("selected"))
+            obj.parentNode.removeChild(obj);
+    }
+</script>
+
+</html>

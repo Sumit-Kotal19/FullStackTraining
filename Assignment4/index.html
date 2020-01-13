@@ -1,0 +1,252 @@
+<html>
+
+<head>
+    <title>
+        Simple Calculator
+    </title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        //cdn// 
+        var number1 = 0;
+        var number2 = 0;
+        var change = false;
+        var USD;
+        var EUR;
+        var AED;
+        var SGD;
+        $(document).ready(function () {
+            $("#btnAdd").on('click', function () {
+                Add();
+            });
+            $("#btnSubstract").on('click', function () {
+                Substract();
+            })
+            $("#btnMultiply").on('click', function () {
+                Multiply();
+            })
+            $("#btnDivide").on('click', function () {
+                Divide();
+            })
+            $("#btnUSD").on('click', function () {
+                convertToUSD();
+            })
+            $("#btnEUR").on('click', function () {
+                convertToEUR();
+            })
+            $("#btnAED").on('click', function () {
+                convertToAED();
+            })
+            $("#btnSGD").on('click', function () {
+                convertToSGD();
+            })
+            $("#btnDelete").on('click', function () {
+                change = false;
+                number1 = 0;
+                number2 = 0;
+                $("#txtResult").val("");
+            })
+            $(".toggle-switch").on('click', function () {
+                if ($("#chkTest").is(':checked')) {
+                    $("#chkTest").prop('checked', false);
+                    changeUI(true);
+                } else {
+                    $("#chkTest").prop('checked', true);
+                    changeUI(false);
+                }
+            })
+        });
+
+        function Add() {
+            if (number1 != 0) {
+                change = true;
+                $("#txtResult").val("");
+                if (number2 != 0) {
+                    var result = parseInt(number1) + parseInt(number2);
+                    $("#txtResult").val(result);
+                    alert("The result is " + result);
+                    change = false;
+                }
+
+            }
+        }
+
+        function Substract() {
+            if (number1 != 0) {
+                change = true;
+                $("#txtResult").val("");
+                if (number2 != 0) {
+                    var result = parseInt(number1) - parseInt(number2);
+                    $("#txtResult").val(result);
+                    alert("The result is " + result);
+                    change = false;
+                }
+
+            }
+        }
+
+        function Multiply() {
+            if (number1 != 0) {
+                change = true;
+                $("#txtResult").val("");
+                if (number2 != 0) {
+                    var result = parseInt(number1) * parseInt(number2);
+                    $("#txtResult").val(result);
+                    alert("The result is " + result);
+                    change = false;
+                }
+
+            }
+        }
+
+        function Divide() {
+            if (number1 != 0) {
+                change = true;
+                $("#txtResult").val("");
+                if (number2 != 0) {
+                    var result = parseInt(number1) / parseInt(number2);
+                    $("#txtResult").val(result);
+                    alert("The result is " + result);
+                    change = false;
+                }
+
+            }
+        }
+
+        function ButtonClick(a) {
+            var btnVal = parseInt($(a).val());
+            var result = $("#txtResult").val();
+            result = result + btnVal
+            $("#txtResult").val(result);
+            if (!change) {
+                number1 = result;
+            } else {
+                number2 = result;
+            }
+        }
+
+        function convertToUSD() {
+            var c = parseInt($("#txtResult").val());
+            if (c != 0) {
+                var result = (parseFloat(c) / USD).toFixed(2);
+                alert("Conversion : "+c+" USD - "+result+" Rs");
+                $("#txtResult").val("");
+            }
+        }
+
+        function convertToEUR() {
+            var c = parseInt($("#txtResult").val());
+            if (c != 0) {
+                var result = (parseFloat(c) / EUR).toFixed(2);
+                alert("Conversion : "+c+" EUR - "+result+" Rs");
+                $("#txtResult").val("");
+            }
+        }
+
+        function convertToAED() {
+            var c = parseInt($("#txtResult").val());
+            if (c != 0) {
+                var result = (parseFloat(c) / AED).toFixed(2);
+                alert("Conversion : "+c+" AED - "+result+" Rs");
+                $("#txtResult").val("");
+            }
+        }
+
+        function convertToSGD() {
+            var c = parseInt($("#txtResult").val());
+            if (c != 0) {
+                var result = (parseFloat(c) / SGD).toFixed(2);
+                alert("Conversion : "+c+" SGD - "+result+" Rs");
+                $("#txtResult").val("");
+            }
+        }
+
+
+        function changeUI(status) {
+            if (status) {
+                callToAPI();
+                $("#btnAdd").hide();
+                $("#btnSubstract").hide();
+                $("#btnMultiply").hide();
+                $("#btnDivide").hide();
+                $("#btnUSD").show();
+                $("#btnEUR").show();
+                $("#btnAED").show();
+                $("#btnSGD").show();
+            } else {
+                USD = AED = SGD = EUR = 0;
+                $("#btnAdd").show();
+                $("#btnSubstract").show();
+                $("#btnMultiply").show();
+                $("#btnDivide").show();
+                $("#btnUSD").hide();
+                $("#btnEUR").hide();
+                $("#btnAED").hide();
+                $("#btnSGD").hide();
+            }
+        }
+
+        function callToAPI() {
+
+            var api_url = 'https://api.exchangerate-api.com/v4/latest/INR'
+            $.ajax({
+
+                url: api_url,
+                type: 'GET',
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    var rates = data.rates;
+                    USD = parseFloat(rates.USD);
+                    EUR = parseFloat(rates.EUR);
+                    AED = parseFloat(rates.AED);
+                    SGD = parseFloat(rates.SGD);
+                },
+                error: function (request, error) {
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <input type="text" id="txtResult" placeholder="0"><br> <br>
+
+    <div class="toggle-switch">
+        <input type="checkbox" id="chkTest" name="chkTest">
+        <label for="chkTest">
+            <span class="toggle-track"></span>
+        </label>
+    </div>
+
+    <input type="button" id="btnNo1" value="1" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo2" value="2" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo3" value="3" onclick="ButtonClick(this)">
+    <br>
+    <input type="button" id="btnNo4" value="4" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo5" value="5" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo6" value="6" onclick="ButtonClick(this)">
+    <br>
+    <input type="button" id="btnNo7" value="7" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo8" value="8" onclick="ButtonClick(this)">
+    <input type="button" id="btnNo9" value="9" onclick="ButtonClick(this)">
+    <br>
+
+    <input type="button" id="btnUSD" value="USD" hidden>
+    <input type="button" id="btnAdd" value="+">
+    <input type="button" id="btnNo0" value="0" onclick="ButtonClick(this)">
+    <input type="button" id="btnSubstract" value="-">
+    <input type="button" id="btnEUR" value="EUR" hidden>
+
+    <br>
+    <input type="button" id="btnAED" value="AED" hidden>
+    <input type="button" id="btnSGD" value="SGD" hidden>
+    <input type="button" id="btnMultiply" value="*">
+    <input type="button" id="btnDivide" value="/">
+    <input type="button" id="btnDelete" value="Del">
+</body>
+
+</html>

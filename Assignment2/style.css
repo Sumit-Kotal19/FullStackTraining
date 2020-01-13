@@ -1,0 +1,45 @@
+Body{
+    padding: 20px 20%;
+    background: #dddddd;
+}
+.wrapper{
+    background: #ffffff;
+}
+header{
+    padding: 20px;
+    border-bottom: 2px solid #000;
+}
+img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+section{
+    padding: 15px;
+    border-bottom: 1px solid #b2b2b2;
+}
+.align-horizontal {
+    /* display:inline-block; */
+    float: left;
+    margin: 0 1% 1% 0;
+}
+.img-responsive{
+    display: inline-block;
+    width: 18%;
+}
+.heading{
+    display: inline-block;
+    width: 60%;
+}
+.sub-headings{
+    display: inline-block;
+    width: 18%;
+}
+.profile h3{
+    display: inline-block;
+    width: 20%;
+}
+.profile article{
+    display: inline-block;
+    width: 60%;
+}
